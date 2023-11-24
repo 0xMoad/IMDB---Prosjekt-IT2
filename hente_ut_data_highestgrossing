@@ -1,0 +1,25 @@
+import csv
+
+FILNAVN = "Top 200 Highest Grossing Movies.csv"
+titler = []
+rangering = []
+bilde_link = []
+
+tittelratingDict = {}
+
+with open(FILNAVN, encoding="UTF-8-sig") as datafil:
+    innhold = csv.reader(datafil, delimiter =",")
+    
+    overskrifter = next(innhold)
+    print(overskrifter)
+    
+    for index, rad in enumerate(innhold, start=1):
+        if index > 10:
+            break  # Stopper etter 10 filmer
+        titler.append(rad[1])
+        bilde_link.append(rad[0])
+        rangering.append(index)
+
+print(rangering)
+print(titler)
+print(bilde_link)
