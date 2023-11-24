@@ -1,7 +1,7 @@
 import csv
 import matplotlib.pyplot as plt
 
-FILNAVN = "Top 200 Highest Grossing Movies.csv"
+FILNAVN = "Top_200.csv"
 titler = []
 inntekt = []
 
@@ -14,15 +14,22 @@ with open(FILNAVN, encoding="UTF-8-sig") as datafil:
         if index > 10:
             break  # Stopper etter 10 filmer
         titler.append(rad[1])
-        inntekt.append(int(rad[2].replace(',', '')))  # Konverterer inntekt til heltall
+        inntektVerdi = rad[2].replace(',', '')
+        
+        inntekt.append(int(inntektVerdi[1:]))  # Konverterer inntekt til heltall
 
 # Plotter stolpediagram
-plt.figure(figsize=(10, 6))
-plt.bar(titler, inntekt, color='skyblue')
-plt.xlabel('Filmtitler')
-plt.ylabel('Inntekt (milliarder dollar)')
+plt.figure(figsize=(12, 8))
+plt.barh(titler, inntekt, color='skyblue')
+plt.xlabel('Inntekt (milliarder dollar)')
 plt.title('De 10 mest innbringende filmene')
+plt.gca().invert_yaxis()  # Inverterer y-aksen for å vise høyeste inntekt øverst
+plt.grid(axis='x', linestyle='--', alpha=0.6)
 plt.xticks(rotation=45, ha='right')  # Roterer x-aksen for bedre lesbarhet
+plt.gca().tick_params(axis='both', which='both', length=0)  # Fjerner tick marks
+plt.title('De 10 mest innbringende filmene', fontsize=16)
+plt.xlabel('Inntekt (milliarder dollar)', fontsize=14)
+plt.ylabel('Filmtitler', fontsize=14)
 plt.tight_layout()
 
 # Viser diagrammet
